@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import simpledialog
 import imageio
 from core.file_manager import FileManager
 from gui.styles import set_custom_styles
@@ -42,6 +43,7 @@ class MainFrame(ttk.Frame):
 
         # Initialize FileManager
         self.file_manager = FileManager()
+        self.list_files()
 
     def load_icon(self, filename):
         icon_path = os.path.join("resources", "icons", filename)
@@ -66,7 +68,7 @@ class MainFrame(ttk.Frame):
         selected_index = self.file_listbox.curselection()
         if selected_index:
             file_name = self.file_listbox.get(selected_index)
-            new_name = messagebox.askstring("Renommer le fichier", f"Entrez le nouveau nom pour '{file_name}'")
+            new_name = simpledialog.askstring("Renommer le fichier", f"Entrez le nouveau nom pour '{file_name}'")
             if new_name:
                 self.file_manager.rename_file(file_name, new_name)
                 self.list_files()  # Refresh file list after renaming
