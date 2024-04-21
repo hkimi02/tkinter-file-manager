@@ -6,6 +6,7 @@ from tkinter import simpledialog
 import imageio
 from core.file_manager import FileManager
 from gui.styles import set_custom_styles
+from user_manager_frame import UserManagerFrame
 
 class MainFrame(ttk.Frame):
     def __init__(self, parent):
@@ -45,9 +46,19 @@ class MainFrame(ttk.Frame):
         self.btn_create_file = ttk.Button(self, text="Créer un fichier", command=self.create_file, style="TButton")
         self.btn_create_file.pack(pady=5)
 
+        # Button to open user manager
+        self.btn_user_manager = ttk.Button(self, text="User Manager", command=self.open_user_manager)
+        self.btn_user_manager.pack(pady=5)
+
         # Initialize FileManager
         self.file_manager = FileManager()
         self.list_files()
+
+
+    def open_user_manager(self):
+        user_manager_window = tk.Toplevel(self)
+        user_manager_frame = UserManagerFrame(user_manager_window)
+        user_manager_frame.pack()
 
     def load_icon(self, filename):
         icon_path = os.path.join("resources", "icons", filename)
