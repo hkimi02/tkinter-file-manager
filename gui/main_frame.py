@@ -6,7 +6,7 @@ from tkinter import simpledialog
 import imageio
 from core.file_manager import FileManager
 from gui.styles import set_custom_styles
-from user_manager_frame import UserManagerFrame
+from gui.user_manager_frame import UserManagerFrame
 
 class MainFrame(ttk.Frame):
     def __init__(self, parent):

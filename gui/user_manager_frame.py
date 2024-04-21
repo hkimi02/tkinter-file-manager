@@ -1,7 +1,7 @@
 # user_manager_frame.py
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
+from tkinter import simpledialog
 from core.user_manager import UserManager
 
 class UserManagerFrame(ttk.Frame):
@@ -31,25 +31,30 @@ class UserManagerFrame(ttk.Frame):
 
     def list_users(self):
         users = self.user_manager.list_users()
-        messagebox.showinfo("List of Users", "\n".join(users))
+        user_list = "\n".join(users)
+        if user_list:
+            tk.messagebox.showinfo("List of Users", user_list)
+        else:
+            tk.messagebox.showinfo("List of Users", "No users found.")
 
     def add_user(self):
-        username = messagebox.askstring("Add User", "Enter username:")
-        password = messagebox.askstring("Add User", "Enter password:")
-        if username and password:
-            self.user_manager.add_user(username, password)
-            messagebox.showinfo("User Added", f"User '{username}' added successfully.")
+        username = simpledialog.askstring("Add User", "Enter username:")
+        if username:
+            password = simpledialog.askstring("Add User", "Enter password:")
+            if password:
+                self.user_manager.add_user(username, password)
+                tk.messagebox.showinfo("User Added", f"User '{username}' added successfully.")
 
     def delete_user(self):
-        username = messagebox.askstring("Delete User", "Enter username:")
+        username = simpledialog.askstring("Delete User", "Enter username:")
         if username:
             self.user_manager.delete_user(username)
-            messagebox.showinfo("User Deleted", f"User '{username}' deleted successfully.")
+            tk.messagebox.showinfo("User Deleted", f"User '{username}' deleted successfully.")
 
     def change_password(self):
-        username = messagebox.askstring("Change Password", "Enter username:")
+        username = simpledialog.askstring("Change Password", "Enter username:")
         if username:
-            new_password = messagebox.askstring("Change Password", "Enter new password:")
+            new_password = simpledialog.askstring("Change Password", "Enter new password:")
             if new_password:
                 self.user_manager.change_password(username, new_password)
-                messagebox.showinfo("Password Changed", f"Password for user '{username}' changed successfully.")
+                tk.messagebox.showinfo("Password Changed", f"Password for user '{username}' changed successfully.")
