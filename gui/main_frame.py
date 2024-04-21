@@ -49,7 +49,7 @@ class MainFrame(ttk.Frame):
         return icon
 
     def list_files(self):
-        self.file_listbox.delete(0, tk.END)  # Clear previous file list
+        self.file_listbox.delete(0, tk.END)
         files = self.file_manager.list_files()
         for file in files:
             self.file_listbox.insert(tk.END, file)

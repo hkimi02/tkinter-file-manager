@@ -3,9 +3,10 @@ from tkinter import messagebox
 
 class FileManager:
     def list_files(self):
-        result = subprocess.run(['ls', '-l'], stdout=subprocess.PIPE)
+        result = subprocess.run(['ls'], stdout=subprocess.PIPE)
         output = result.stdout.decode('utf-8')
-        messagebox.showinfo("Liste des fichiers", output)
+        files = output.split('\n')
+        return files
 
     def create_file(self, filename):
         if filename.strip() != "":
