@@ -40,6 +40,10 @@ class MainFrame(ttk.Frame):
         # Button to rename file
         self.btn_rename_file = ttk.Button(self, text="Renommer le fichier", command=self.rename_file, style="TButton")
         self.btn_rename_file.pack(pady=5)
+        
+        # Button to create file
+        self.btn_create_file = ttk.Button(self, text="Créer un fichier", command=self.create_file, style="TButton")
+        self.btn_create_file.pack(pady=5)
 
         # Initialize FileManager
         self.file_manager = FileManager()
@@ -72,3 +76,9 @@ class MainFrame(ttk.Frame):
             if new_name:
                 self.file_manager.rename_file(file_name, new_name)
                 self.list_files()  # Refresh file list after renaming
+    
+    def create_file(self):
+        new_name = simpledialog.askstring("Créer un fichier", "Entrez le nom du nouveau fichier:")
+        if new_name:
+            self.file_manager.create_file(new_name)
+            self.list_files()
