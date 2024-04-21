@@ -6,9 +6,14 @@ class UserManager:
         pass
 
     def list_users(self):
-        result = subprocess.run(['cut', '-d:', '-f1', '/etc/passwd'], capture_output=True, text=True)
-        users = result.stdout.split('\n')[:-1]  # Remove empty string from the end
-        return users
+        try:
+            result = subprocess.run(['cat', '/etc/passwd'], capture_output=True, text=True)
+            output = result.stdout
+            users = [line.split(':')[0] for line in output.split('\n') if line.strip()]
+            return users
+        except Exception as e:
+            print(f"Error listing users: {e}")
+            return []
 
     def add_user(self, username, password):
         subprocess.run(['sudo', 'useradd', '-m', '-p', password, username])
